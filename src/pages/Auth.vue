@@ -55,9 +55,15 @@ function register() {
   if (!email.value.includes("@")) {
     // show error
     emailError.value = true;
+    setTimeout(() => {
+      emailError.value = false;
+    }, 5000);
     // setTimeout de 5000 k posi a false;
   } else if (password.value.length < 6) {
     passwordError.value = true;
+    setTimeout(() => {
+      passwordError.value = false;
+    }, 5000);
   } else {
     console.log("Registering user");
     console.log(email.value, password.value);
