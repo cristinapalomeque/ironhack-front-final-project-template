@@ -43,12 +43,14 @@
 <script setup>
 import { ref } from "vue";
 import { useUserStore } from "../store/user";
+import { useRouter } from "vue-router";
 
 const email = ref("");
 const password = ref("");
 const emailError = ref(false);
 const passwordError = ref(false);
 const userStore = useUserStore();
+const router = useRouter();
 function register() {
   // check if email is valid
   // check if password has at least 6 characters
@@ -81,7 +83,33 @@ function register() {
 }
 
 function login() {
-  console.log("Logging in");
+  if (!email.value.includes("@")) {
+    // show error
+    emailError.value = true;
+    setTimeout(() => {
+      emailError.value = false;
+    }, 5000);
+    // setTimeout de 5000 k posi a false;
+  } else if (password.value.length < 6) {
+    passwordError.value = true;
+    setTimeout(() => {
+      passwordError.value = false;
+    }, 5000);
+  } else {
+    console.log("Logging in");
+    console.log(email.value, password.value);
+    userStore
+      .signIn(email.value, password.value)
+      .then(() => {
+        // Redirect to Home
+        console.log("Logged in be");
+        router.push({ path: "/" });
+      })
+      .catch((e) => {
+        // show error
+        console.log(e);
+      });
+  }
 }
 </script>
 
