@@ -1,43 +1,51 @@
 <template>
-  <h1 class="ml-4 bg-gradient-to-r from-cyan-500 to-blue-500">
-    To-Do homepage
-  </h1>
-  <div class="ml-4">
-    Enter email
-    <input
-      v-model="email"
-      for="email"
-      type="email"
-      placeholder="Email"
-      class="border-solid border-2 border-sky-600 m-4 pl-2"
-    />
-    <span v-if="emailError">The email must be valid</span>
+  <div class="grid grid-cols-4 gap-5 justify-items-center mt-2">
+    <h1 class="col-span-4 ml-4 text-cyan-600 text-xl font-extrabold">
+      To-Do homepage
+    </h1>
+    <div class="col-start-2 self-center justify-self-end">Enter email</div>
+    <div class="">
+      <input
+        v-model="email"
+        for="email"
+        type="email"
+        placeholder="Email"
+        class="border-solid border-2 border-sky-600 m-4 pl-2"
+      />
+      <span v-if="emailError">The email must be valid</span>
+    </div>
+
+    <div class="col-start-2 self-center justify-self-end">Enter password</div>
+    <div>
+      <input
+        v-model="password"
+        for="password"
+        type="password"
+        placeholder="Password"
+        class="border-solid border-2 border-sky-600 m-4 pl-2"
+      />
+      <span v-if="passwordError">
+        The password needs to have at least 6 characters</span
+      >
+    </div>
+
+    <div class="col-start-2 justify-self-end">
+      <button
+        @click="login()"
+        class="bg-sky-500 rounded hover:bg-sky-700 px-4 py-2 w-24 text-cyan-50"
+      >
+        Log in
+      </button>
+    </div>
+    <div>
+      <button
+        @click="register()"
+        class="bg-sky-500 rounded hover:bg-sky-700 px-4 py-2 w-24 text-cyan-50"
+      >
+        Sign up
+      </button>
+    </div>
   </div>
-  <div class="ml-4">
-    Enter password
-    <input
-      v-model="password"
-      for="password"
-      type="password"
-      placeholder="Password"
-      class="border-solid border-2 border-sky-600 m-4 pl-2"
-    />
-    <span v-if="passwordError">
-      The password needs to have at least 6 characters</span
-    >
-  </div>
-  <button
-    @click="login()"
-    class="bg-sky-500 rounded hover:bg-sky-700 px-4 py-2 w-24 m-4"
-  >
-    Log in
-  </button>
-  <button
-    @click="register()"
-    class="bg-sky-500 rounded hover:bg-sky-700 px-4 py-2 w-24"
-  >
-    Sign up
-  </button>
 </template>
 
 <script setup>
