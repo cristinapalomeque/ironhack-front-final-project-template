@@ -12,12 +12,25 @@ export const useTaskStore = defineStore("tasks", {
       const { data: tasks } = await supabase
         .from("tasks")
         .select("*")
+        //  .eq("user_id", )
         .order("id", { ascending: false });
       this.tasks = tasks;
+    },
+    async toggleCompleted(task) {
+      const data = await supabase
+        .from("tasks")
+        .update({ is_complete: !task.is_complete })
+        .eq("id", task.id);
     },
     // Hacer POST
     // Hacer el PUT (edit)
     // Hacer el delete
+    async deleteTask(task) {
+      const { error } = await supabase
+        .from("tasks")
+        .delete(task)
+        .eq("id", task.id);
+    },
     // Hacer el PUT (cambiar entre completada y pendiente)
   },
 });
