@@ -2,6 +2,21 @@
   <h1 class="mt-6 text-center text-2xl font-bold tracking-tight text-gray-900">
     Welcome to your To-Do List!
   </h1>
+  <div v-if="edit">
+    <input class="ml-10" v-model="currentTask.title" placeholder="edit me" />
+    <button
+      class="text-emerald-800 border-solid border-2 border-emerald-200 px-2 mx-6"
+    >
+      Save
+    </button>
+    <button
+      @click="edit = false"
+      class="text-emerald-800 border-solid border-2 border-emerald-200 px-2 mx-6"
+    >
+      Cancel
+    </button>
+  </div>
+
   <div
     class="m-auto task-list w-2/3 justify-center flex-col text-emerald-800 border-solid border-2 border-emerald-200"
   >
@@ -16,13 +31,17 @@
         {{ task.title }}
       </p>
       <button
+        @click="startEdit(task)"
+        class="text-emerald-800 border-solid border-2 border-emerald-200 px-2 mx-6"
+      >
+        Edit
+      </button>
+      <button
         @click="deleteTask(task)"
         class="text-emerald-800 border-solid border-2 border-emerald-200 px-2 mx-6"
       >
-        <font-awesome-icon icon="fa-regular fa-trash"></font-awesome-icon>
-        <font-awesome-icon icon="fa-solid fa-user-secret" />
-
         Delete
+        <i class="fa-sharp fa-solid fa-trash"></i>
       </button>
     </div>
   </div>
@@ -36,6 +55,7 @@
 </template>
 
 <script setup>
+import { ref } from "vue";
 import { useUserStore } from "../store/user";
 import { useRouter } from "vue-router";
 import { useTaskStore } from "../store/task";
@@ -43,10 +63,18 @@ import { useTaskStore } from "../store/task";
 const userStore = useUserStore();
 const router = useRouter();
 const taskStore = useTaskStore();
+const edit = ref(false);
+const currentTask = ref(null);
 
 taskStore.fetchTasks().then(() => {
   console.log(taskStore.tasks);
 });
+
+function startEdit(task) {
+  edit.value = true;
+  currentTask.value = task;
+  console.log(currentTask.value);
+}
 
 function toggleCheck(task) {
   console.log(task);

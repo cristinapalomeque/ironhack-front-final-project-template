@@ -25,6 +25,14 @@ export const useTaskStore = defineStore("tasks", {
     // Hacer POST
     // Hacer el PUT (edit)
     // Hacer el delete
+
+    async editTask(task) {
+      const { error } = await supabase
+        .from("tasks")
+        .update({ name: task.title })
+        .eq("id", task.id);
+    },
+
     async deleteTask(task) {
       const { error } = await supabase
         .from("tasks")
