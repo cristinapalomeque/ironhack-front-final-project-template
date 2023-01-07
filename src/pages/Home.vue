@@ -1,4 +1,5 @@
 <template>
+  <Header> </Header>
   <h1
     class="mt-6 mb-4 text-center text-2xl font-bold tracking-tight text-gray-900"
   >
@@ -52,13 +53,6 @@
       </td>
     </tr>
   </table>
-
-  <button
-    @click="logout()"
-    class="bg-emerald-400 rounded hover:bg-emerald-700 text-white px-4 py-2 w-24 m-4"
-  >
-    Log out
-  </button>
 </template>
 
 <script setup>
@@ -66,6 +60,7 @@ import { ref } from "vue";
 import { useUserStore } from "../store/user";
 import { useRouter } from "vue-router";
 import { useTaskStore } from "../store/task";
+import Header from "./Header.vue";
 
 const userStore = useUserStore();
 const router = useRouter();

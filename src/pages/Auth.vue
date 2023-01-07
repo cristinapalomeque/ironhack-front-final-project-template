@@ -1,4 +1,5 @@
 <template>
+  <Header></Header>
   <div
     class="flex min-h-full items-center justify-center py-12 px-4 sm:px-6 lg:px-8"
   >
@@ -104,6 +105,7 @@
 import { ref } from "vue";
 import { useUserStore } from "../store/user";
 import { useRouter } from "vue-router";
+import Header from "./Header.vue";
 
 const email = ref("");
 const password = ref("");
