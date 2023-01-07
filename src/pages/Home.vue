@@ -1,50 +1,57 @@
 <template>
-  <h1 class="mt-6 text-center text-2xl font-bold tracking-tight text-gray-900">
+  <h1
+    class="mt-6 mb-4 text-center text-2xl font-bold tracking-tight text-gray-900"
+  >
     Welcome to your To-Do List!
   </h1>
-  <div v-if="edit">
-    <input class="ml-10" v-model="currentTask.title" placeholder="edit me" />
+
+  <div class="flex flex-row justify-center px-2 m-6" v-if="edit">
+    <input
+      class="text-emerald-800 border-solid border-2 border-emerald-600 px-2 mx-6"
+      v-model="currentTask.title"
+      placeholder="edit me"
+    />
     <button
-      class="text-emerald-800 border-solid border-2 border-emerald-200 px-2 mx-6"
+      class="text-emerald-800 border-solid border-2 border-emerald-600 hover:bg-emerald-400 px-2 mx-6"
+      @click="updateTask()"
     >
-      Save
+      Save <i class="fa-solid fa-floppy-disk"></i>
     </button>
     <button
       @click="edit = false"
-      class="text-emerald-800 border-solid border-2 border-emerald-200 px-2 mx-6"
+      class="text-white bg-emerald-500 border-solid border-2 hover:bg-emerald-700 border-emerald-600 px-2 mx-6"
     >
-      Cancel
+      Cancel <i class="fa-solid fa-xmark"></i>
     </button>
   </div>
 
-  <div
-    class="m-auto task-list w-2/3 justify-center flex-col text-emerald-800 border-solid border-2 border-emerald-200"
+  <table
+    class="m-auto task-list w-2/3 justify-center text-emerald-800 border-solid border-2 border-emerald-200"
   >
-    <div class="flex hover:bg-emerald-300" v-for="task in taskStore.tasks">
-      <input
-        class="ml-4"
-        type="checkbox"
-        v-model="task.is_complete"
-        @click="toggleCheck(task)"
-      />
-      <p class="ml-2">
-        {{ task.title }}
-      </p>
-      <button
-        @click="startEdit(task)"
-        class="text-emerald-800 border-solid border-2 border-emerald-200 px-2 mx-6"
-      >
-        Edit
-      </button>
-      <button
-        @click="deleteTask(task)"
-        class="text-emerald-800 border-solid border-2 border-emerald-200 px-2 mx-6"
-      >
-        Delete
-        <i class="fa-sharp fa-solid fa-trash"></i>
-      </button>
-    </div>
-  </div>
+    <tr class="hover:bg-emerald-300" v-for="task in taskStore.tasks">
+      <td>
+        <input
+          class="ml-4"
+          type="checkbox"
+          v-model="task.is_complete"
+          @click="toggleCheck(task)"
+        />
+      </td>
+      <td>
+        <p class="ml-2" :class="{ 'line-through': task.is_complete }">
+          {{ task.title }}
+        </p>
+      </td>
+      <td class="flex justify-end">
+        <button @click="startEdit(task)" class="text-emerald-800 px-2 mx-1">
+          <i class="fa-regular fa-pen-to-square"></i>
+        </button>
+        <button @click="deleteTask(task)" class="text-emerald-800 px-2 mx-1">
+          <i class="fa-sharp fa-solid fa-trash"></i>
+        </button>
+      </td>
+    </tr>
+  </table>
 
   <button
     @click="logout()"
@@ -70,12 +77,6 @@ taskStore.fetchTasks().then(() => {
   console.log(taskStore.tasks);
 });
 
-function startEdit(task) {
-  edit.value = true;
-  currentTask.value = task;
-  console.log(currentTask.value);
-}
-
 function toggleCheck(task) {
   console.log(task);
   taskStore
@@ -86,6 +87,19 @@ function toggleCheck(task) {
     .catch((e) => {
       console.log(e);
     });
+}
+function updateTask() {
+  console.log(currentTask.value);
+  taskStore.updateTask(currentTask.value).then(() => {
+    console.log("Task updated");
+    taskStore.fetchTasks();
+  });
+}
+
+function startEdit(task) {
+  edit.value = true;
+  currentTask.value = { ...task };
+  console.log(currentTask.value);
 }
 
 function deleteTask(task) {
