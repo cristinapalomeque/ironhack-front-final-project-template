@@ -95,7 +95,7 @@ const taskStore = useTaskStore();
 const edit = ref(false);
 const currentTask = ref(null);
 const showAdd = ref(false);
-const newTask = ref({ title: "" });
+const newTask = ref({ title: "", user_id: userStore.user.id });
 
 taskStore.fetchTasks().then(() => {
   console.log(taskStore.tasks);
@@ -128,7 +128,7 @@ function startEdit(task) {
 
 function saveNewTask() {
   taskStore.saveNewTask(newTask.value).then(() => {
-    console.log("Task saved");
+    console.log(newTask.value);
     taskStore.fetchTasks();
   });
 }
