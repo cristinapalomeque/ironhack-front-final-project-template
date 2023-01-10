@@ -6,6 +6,33 @@
     Welcome to your To-Do List!
   </h1>
 
+  <div class="flex justify-center">
+    <button
+      @click="showAdd = true"
+      class="mb-5 text-white bg-emerald-500 border-solid border-2 hover:bg-emerald-700 border-emerald-600 px-2 mx-6"
+    >
+      Add task
+    </button>
+  </div>
+  <div v-if="showAdd">
+    <input
+      class="text-emerald-800 border-solid border-2 border-emerald-600 px-2 mx-6"
+      placeholder="type task"
+      v-model="newTask.title"
+    />
+    <button
+      class="text-emerald-800 border-solid border-2 border-emerald-600 hover:bg-emerald-400 px-2 mx-6"
+      @click="saveNewTask()"
+    >
+      Save
+    </button>
+    <button
+      class="text-emerald-800 border-solid border-2 border-emerald-600 hover:bg-emerald-400 px-2 mx-6"
+      @click="showAdd = false"
+    >
+      Cancel
+    </button>
+  </div>
   <div class="flex flex-row justify-center px-2 m-6" v-if="edit">
     <input
       class="text-emerald-800 border-solid border-2 border-emerald-600 px-2 mx-6"
@@ -67,6 +94,8 @@ const router = useRouter();
 const taskStore = useTaskStore();
 const edit = ref(false);
 const currentTask = ref(null);
+const showAdd = ref(false);
+const newTask = ref({ title: "" });
 
 taskStore.fetchTasks().then(() => {
   console.log(taskStore.tasks);
@@ -95,6 +124,18 @@ function startEdit(task) {
   edit.value = true;
   currentTask.value = { ...task };
   console.log(currentTask.value);
+}
+
+function saveNewTask() {
+  taskStore.saveNewTask(newTask.value).then(() => {
+    console.log("Task saved");
+    taskStore.fetchTasks();
+  });
+}
+
+function addTask(task) {
+  task.value = true;
+  console.log(task.value);
 }
 
 function deleteTask(task) {

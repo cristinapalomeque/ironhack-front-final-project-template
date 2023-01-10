@@ -33,6 +33,10 @@ export const useTaskStore = defineStore("tasks", {
         .eq("id", task.id);
     },
 
+    async saveNewTask(task) {
+      const { error } = await supabase.from("tasks").insert(task);
+    },
+
     async deleteTask(task) {
       const { error } = await supabase
         .from("tasks")
