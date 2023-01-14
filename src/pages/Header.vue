@@ -26,7 +26,6 @@ import Header from "./Header.vue";
 const userStore = useUserStore();
 const router = useRouter();
 const taskStore = useTaskStore();
-const showLogout = ref(false);
 const props = defineProps({ logged: Boolean });
 
 function logout() {

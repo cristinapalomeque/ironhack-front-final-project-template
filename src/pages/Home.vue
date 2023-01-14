@@ -133,11 +133,6 @@ function saveNewTask() {
   });
 }
 
-function addTask(task) {
-  task.value = true;
-  console.log(task.value);
-}
-
 function deleteTask(task) {
   console.log(task);
   taskStore
