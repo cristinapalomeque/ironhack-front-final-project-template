@@ -1,5 +1,5 @@
 <template>
-  <Header> </Header>
+  <Header :logged="true"> </Header>
   <h1
     class="mt-6 mb-4 text-center text-2xl font-bold tracking-tight text-gray-900"
   >
