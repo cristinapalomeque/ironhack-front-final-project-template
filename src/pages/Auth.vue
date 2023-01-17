@@ -7,7 +7,7 @@
       <div>
         <img
           class="mx-auto h-24 w-auto"
-          src="public/logo_butler.png"
+          src="logo_butler.png"
           alt="Butler TodoList"
         />
         <h2
@@ -105,7 +105,7 @@
 import { ref } from "vue";
 import { useUserStore } from "../store/user";
 import { useRouter } from "vue-router";
-import Header from "./Header.vue";
+import Header from "../components/Header.vue";
 
 const email = ref("");
 const password = ref("");

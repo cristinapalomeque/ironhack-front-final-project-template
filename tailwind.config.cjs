@@ -5,6 +5,7 @@ module.exports = {
     extend: {
       colors: {},
     },
+    types: ["vue-sweetalert2"],
   },
   plugins: [],
 };

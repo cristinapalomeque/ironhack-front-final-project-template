@@ -14,24 +14,26 @@
       Add task
     </button>
   </div>
-  <div v-if="showAdd">
-    <input
-      class="text-emerald-800 border-solid border-2 border-emerald-600 px-2 mx-6"
-      placeholder="type task"
-      v-model="newTask.title"
-    />
-    <button
-      class="text-emerald-800 border-solid border-2 border-emerald-600 hover:bg-emerald-400 px-2 mx-6"
-      @click="saveNewTask()"
-    >
-      Save
-    </button>
-    <button
-      class="text-emerald-800 border-solid border-2 border-emerald-600 hover:bg-emerald-400 px-2 mx-6"
-      @click="showAdd = false"
-    >
-      Cancel
-    </button>
+  <div v-if="showAdd" class="flex justify-around mb-5">
+    <div>
+      <input
+        class="text-emerald-800 border-solid border-2 border-emerald-600 px-2 mx-6"
+        placeholder="type task"
+        v-model="newTask.title"
+      />
+      <button
+        class="text-emerald-800 border-solid border-2 border-emerald-600 hover:bg-emerald-400 px-2 mx-6"
+        @click="saveNewTask()"
+      >
+        Save
+      </button>
+      <button
+        class="text-emerald-800 border-solid border-2 border-emerald-600 hover:bg-emerald-400 px-2 mx-6"
+        @click="showAdd = false"
+      >
+        Cancel
+      </button>
+    </div>
   </div>
   <div class="flex flex-row justify-center px-2 m-6" v-if="edit">
     <input
@@ -83,11 +85,12 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
+import Swal from "sweetalert2";
+import { ref, resolveDirective } from "vue";
 import { useUserStore } from "../store/user";
 import { useRouter } from "vue-router";
 import { useTaskStore } from "../store/task";
-import Header from "./Header.vue";
+import Header from "../components/Header.vue";
 
 const userStore = useUserStore();
 const router = useRouter();
@@ -98,7 +101,17 @@ const showAdd = ref(false);
 const newTask = ref({ title: "", user_id: userStore.user.id });
 
 taskStore.fetchTasks().then(() => {
-  console.log(taskStore.tasks);
+  Swal.fire({
+    title: "¡Todo bien!",
+    text: "Do you want to continue",
+    icon: "success",
+    confirmButtonText: "Cool",
+    denyButtonText: "Not cool",
+    denyButtonColor: "red",
+    showCancelButton: true,
+  }).then((result) => {
+    console.log(result);
+  });
 });
 
 function toggleCheck(task) {
@@ -135,15 +148,35 @@ function saveNewTask() {
 
 function deleteTask(task) {
   console.log(task);
-  taskStore
+  Swal.fire({
+    title: "Do you really want to delete this task?",
+    input: "",
+    showCancelButton: true,
+    confirmButtonText: "Yes",
+    cancelButtonText: "No way",
+  }).then((result) => {
+    if (result.isConfirmed) {
+      taskStore
+        .deleteTask(task)
+        .then(() => {
+          console.log("Task deleted");
+          taskStore.fetchTasks();
+        })
+        .catch((e) => {
+          console.log(e);
+        });
+    }
+  });
+
+  /* taskStore
     .deleteTask(task)
     .then(() => {
       console.log("Task deleted");
-      taskStore.fetchTasks();
+     taskStore.fetchTasks();
     })
     .catch((e) => {
       console.log(e);
-    });
+    }); */
 }
 
 function logout() {
