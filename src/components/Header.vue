@@ -13,17 +13,38 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
 import { useUserStore } from "../store/user";
 import { useRouter } from "vue-router";
-import { useTaskStore } from "../store/task";
-import Header from "./Header.vue";
-
+import Swal from "sweetalert2";
 const userStore = useUserStore();
 const router = useRouter();
-const taskStore = useTaskStore();
 const props = defineProps({ logged: Boolean });
 
+function logout() {
+  Swal.fire({
+    title: "Do you really want to log out?",
+    input: "",
+    showCancelButton: true,
+    confirmButtonText: "Yes",
+    cancelButtonText: "No way",
+  }).then((result) => {
+    if (result.isConfirmed) {
+      userStore
+        .logout()
+        .then(() => {
+          // Redirect to Home
+          console.log("You are logged out");
+          router.push({ path: "/auth" });
+        })
+        .catch((e) => {
+          // show error
+          console.log(e);
+        });
+    }
+  });
+}
+
+/*
 function logout() {
   userStore
     .logout()
@@ -37,6 +58,8 @@ function logout() {
       console.log(e);
     });
 }
+
+*/
 </script>
 
 <style lang="scss" scoped></style>

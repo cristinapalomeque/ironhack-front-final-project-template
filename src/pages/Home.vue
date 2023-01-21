@@ -16,21 +16,21 @@
   </div>
   <div v-if="showAdd" class="flex justify-around mb-5 p-5">
     <div
-      class="mb-5 bg-emerald-200 m-20 p-5 border-dashed border-2 border-black"
+      class="flex flex-col md:flex-row mb-5 bg-emerald-200 m-20 p-5 border-dashed border-2 border-black"
     >
       <input
-        class="text-emerald-800 border-solid border-2 border-emerald-600 px-2 mx-6"
+        class="text-emerald-800 border-solid border-2 border-emerald-600 px-2 mx-6 mb-3"
         placeholder="type task"
         v-model="newTask.title"
       />
       <button
-        class="text-emerald-800 bg-slate-300 border-solid border-2 border-emerald-600 hover:bg-emerald-400 px-2 mx-6"
+        class="text-emerald-800 bg-slate-300 border-solid border-2 border-emerald-600 hover:bg-emerald-400 px-2 mx-6 md:mb-0 w-20 self-center"
         @click="saveNewTask()"
       >
         Save
       </button>
       <button
-        class="text-emerald-800 bg-slate-300 border-solid border-2 border-emerald-600 hover:bg-emerald-400 px-2 mx-6"
+        class="text-emerald-800 bg-slate-300 border-solid border-2 border-emerald-600 hover:bg-emerald-400 px-2 mx-6 w-20 self-center"
         @click="showAdd = false"
       >
         Cancel
@@ -104,13 +104,13 @@ const newTask = ref({ title: "", user_id: userStore.user.id });
 
 taskStore.fetchTasks().then(() => {
   Swal.fire({
-    title: "¡Todo bien!",
-    text: "Do you want to continue",
+    title: "Welcome to your Todo page!",
+    text: "Do you want to continue?",
     icon: "success",
     confirmButtonText: "Cool",
     denyButtonText: "Not cool",
     denyButtonColor: "red",
-    showCancelButton: true,
+    showCancelButton: false,
   }).then((result) => {
     console.log(result);
   });
@@ -181,7 +181,33 @@ function deleteTask(task) {
     }); */
 }
 
+/*
 function logout() {
+  Swal.fire({
+    title: "Do you really want to log out?",
+    input: "",
+    showCancelButton: true,
+    confirmButtonText: "Yes",
+    cancelButtonText: "No way",
+  }).then((result) => {
+    if (result.isConfirmed) {
+      userStore
+        .logout()
+        .then(() => {
+          // Redirect to Home
+          console.log("You are logged out");
+          router.push({ path: "/auth" });
+        })
+        .catch((e) => {
+          // show error
+          console.log(e);
+        });
+    }
+  });
+}
+*/
+
+/*function logout() {
   userStore
     .logout()
     .then(() => {
@@ -194,6 +220,7 @@ function logout() {
       console.log(e);
     });
 }
+*/
 </script>
 
 <style lang="scss" scoped></style>
