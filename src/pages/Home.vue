@@ -14,21 +14,23 @@
       Add task
     </button>
   </div>
-  <div v-if="showAdd" class="flex justify-around mb-5">
-    <div>
+  <div v-if="showAdd" class="flex justify-around mb-5 p-5">
+    <div
+      class="mb-5 bg-emerald-200 m-20 p-5 border-dashed border-2 border-black"
+    >
       <input
         class="text-emerald-800 border-solid border-2 border-emerald-600 px-2 mx-6"
         placeholder="type task"
         v-model="newTask.title"
       />
       <button
-        class="text-emerald-800 border-solid border-2 border-emerald-600 hover:bg-emerald-400 px-2 mx-6"
+        class="text-emerald-800 bg-slate-300 border-solid border-2 border-emerald-600 hover:bg-emerald-400 px-2 mx-6"
         @click="saveNewTask()"
       >
         Save
       </button>
       <button
-        class="text-emerald-800 border-solid border-2 border-emerald-600 hover:bg-emerald-400 px-2 mx-6"
+        class="text-emerald-800 bg-slate-300 border-solid border-2 border-emerald-600 hover:bg-emerald-400 px-2 mx-6"
         @click="showAdd = false"
       >
         Cancel
@@ -56,7 +58,7 @@
   </div>
 
   <table
-    class="m-auto task-list w-2/3 justify-center text-emerald-800 border-solid border-2 border-emerald-200"
+    class="m-auto task-list w-2/3 justify-center text-emerald-800 border-double border-4 border-emerald-500"
   >
     <tr class="hover:bg-emerald-300" v-for="task in taskStore.tasks">
       <td>
