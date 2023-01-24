@@ -7,7 +7,7 @@
       <div>
         <img
           class="mx-auto h-24 w-auto"
-          src="logo_butler.png"
+          src="../assets/logo_butler.png"
           alt="Butler TodoList"
         />
         <h2

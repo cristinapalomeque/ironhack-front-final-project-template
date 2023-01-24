@@ -1,6 +1,10 @@
 <template>
   <div class="flex justify-between">
-    <img class="h-14 w-auto" src="logo_butler.png" alt="Butler TodoList" />
+    <img
+      class="h-14 w-auto"
+      src="../assets/logo_butler.png"
+      alt="Butler TodoList"
+    />
 
     <button
       @click="logout()"
