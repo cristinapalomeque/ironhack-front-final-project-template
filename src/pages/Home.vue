@@ -9,17 +9,17 @@
   <div class="flex justify-center">
     <button
       @click="showAdd = true"
-      class="mb-5 text-white bg-emerald-500 border-solid border-2 hover:bg-emerald-700 border-emerald-600 px-2 mx-6"
+      class="text-white bg-emerald-500 border-solid border-2 hover:bg-emerald-700 border-emerald-600 px-2 mx-6 mb-3"
     >
       Add task
     </button>
   </div>
   <div v-if="showAdd" class="flex justify-around mb-5 p-5">
     <div
-      class="flex flex-col md:flex-row mb-5 bg-emerald-200 m-20 p-5 border-dashed border-2 border-black"
+      class="flex flex-col md:flex-row mb-5 bg-emerald-200 mx-20 mb-3 p-5 border-dashed border-2 border-black"
     >
       <input
-        class="text-emerald-800 border-solid border-2 border-emerald-600 px-2 mx-6 mb-3"
+        class="text-emerald-800 border-solid border-2 border-emerald-600 px-2 mx-6 md:mb-0"
         placeholder="type task"
         v-model="newTask.title"
       />
@@ -105,9 +105,9 @@ const newTask = ref({ title: "", user_id: userStore.user.id });
 taskStore.fetchTasks().then(() => {
   Swal.fire({
     title: "Welcome to your Todo page!",
-    text: "Do you want to continue?",
+    text: "",
     icon: "success",
-    confirmButtonText: "Cool",
+    confirmButtonText: "Close",
     denyButtonText: "Not cool",
     denyButtonColor: "red",
     showCancelButton: false,
