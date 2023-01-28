@@ -131,6 +131,7 @@ function updateTask() {
   console.log(currentTask.value);
   taskStore.updateTask(currentTask.value).then(() => {
     console.log("Task updated");
+    edit.value = false;
     taskStore.fetchTasks();
   });
 }
