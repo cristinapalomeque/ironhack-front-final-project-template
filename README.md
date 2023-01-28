@@ -2,6 +2,8 @@
 
 This webpage is the final project of the IronHack Front-End Bootcamp.
 
+Link to the presentation: https://www.canva.com/design/DAFYmg2KcG8/WtUCqvtSB_-VP_pWY0HraA/edit?utm_content=DAFYmg2KcG8&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton
+
 In order to run the project:
 npm run dev
 
