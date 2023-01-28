@@ -17,7 +17,6 @@
         </h2>
       </div>
 
-      <input type="hidden" name="remember" value="true" />
       <div class="-space-y-px rounded-md shadow-sm">
         <div>
           <label for="email-address" class="sr-only">Email address</label>
@@ -159,7 +158,6 @@ function login() {
     }, 5000);
   } else {
     console.log("Logging in");
-    console.log(email.value, password.value);
     userStore
       .signIn(email.value, password.value)
       .then(() => {

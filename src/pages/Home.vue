@@ -144,6 +144,7 @@ function startEdit(task) {
 function saveNewTask() {
   taskStore.saveNewTask(newTask.value).then(() => {
     console.log(newTask.value);
+    showAdd.value = false;
     taskStore.fetchTasks();
   });
 }
